@@ -1,0 +1,3 @@
+run nodemon for the server
+run ng serve in the angular-src directory to serve the client
+the client is on port 4200
