@@ -32,6 +32,8 @@ router.post('/authenticate', (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
 
+    console.log(username);
+
     User.getUserByUsername(username, (err, user) => {
         if (err) throw err;
         if (!user) {
