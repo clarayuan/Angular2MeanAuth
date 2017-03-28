@@ -14,30 +14,36 @@ var AuthService = (function () {
     function AuthService(http) {
         this.http = http;
     }
+    ;
     AuthService.prototype.registerUser = function (user) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this.http.post('http://localhost:3000/users/register', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    ;
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this.http.post('http://localhost:3000/users/authenticate', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    ;
     AuthService.prototype.storeUserData = function (token, user) {
-        console.log('storing user in local storage');
+        console.log('storing user/users in local storage');
         localStorage.setItem('id_token', token);
         localStorage.setItem('user', JSON.stringify(user));
         this.authToken = token;
         this.user = user;
     };
+    ;
     AuthService.prototype.logout = function () {
+        console.log("calling logout");
         this.authToken = null;
         this.user = null;
         localStorage.clear();
     };
+    ;
     return AuthService;
 }());
 AuthService = __decorate([

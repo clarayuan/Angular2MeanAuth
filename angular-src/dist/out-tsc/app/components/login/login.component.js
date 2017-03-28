@@ -30,11 +30,11 @@ var LoginComponent = (function () {
             if (data.success) {
                 _this.authService.storeUserData(data.token, data.user);
                 _this.flashMessage.show('You are now logged in', { cssClass: 'alert-success', timeout: 5000 });
-                _this.router.navigate(['dashboard']);
+                _this.router.navigate(['/dashboard']);
             }
             else {
                 _this.flashMessage.show(data.msg, { cssClass: 'alert-danger', timeout: 5000 });
-                _this.router.navigate(['login']);
+                _this.router.navigate(['/login']);
             }
         });
     };
