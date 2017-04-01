@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { tokenNotExpired } from 'angular2-jwt';
 var AuthService = (function () {
     function AuthService(http) {
         this.http = http;
@@ -22,10 +23,27 @@ var AuthService = (function () {
             .map(function (res) { return res.json(); });
     };
     ;
+    AuthService.prototype.loggedIn = function () {
+        return tokenNotExpired();
+    };
+    ;
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this.http.post('http://localhost:3000/users/authenticate', user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    ;
+    AuthService.prototype.fetchToken = function () {
+        this.authToken = localStorage.getItem('id_token');
+    };
+    ;
+    AuthService.prototype.getProfile = function () {
+        var headers = new Headers();
+        this.fetchToken();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.authToken);
+        return this.http.get('http://localhost:3000/users/profile', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ;
